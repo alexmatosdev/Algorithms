@@ -1,4 +1,6 @@
-public static int[] radixSort (int[] a) {
+public class RadixSort {
+	
+	public static int[] radixSort (int[] a) {
 		int max = -1;
 		int passed=0;
 		int[] arr = Arrays.copyOf(a, a.length);
@@ -29,3 +31,4 @@ public static int[] radixSort (int[] a) {
 		}
 		return arr;
 	}
+}
