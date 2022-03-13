@@ -1,37 +1,40 @@
-public static int[] mergeSort(int[] arr) {
-		//int[]arr =Arrays.copyOf(ar, ar.length);
-		int index = 0;
-		if (arr.length > 1) {
-			int[]fh = new int[arr.length/2];
-			for (int i = 0; i < arr.length/2;i++)
-				fh[i] = arr[i];
-			mergeSort(fh);
-			int[] sh = new int[arr.length - arr.length / 2];
-			for (int i = arr.length/2; i < arr.length; i++) {
-				sh[index] = arr[i];
-				index++;
-			}
-			mergeSort(sh);
-			merge(fh,sh,arr);
+public class MergeSort {
+	public static int[] quickSort(int[] arr, int f, int l) {
+		if (l > f) {
+			int pi = partition(arr,f,l);
+			quickSort(arr,f,pi-1);
+			quickSort(arr,pi+1,l);
 		}
+
 		return arr;
 	}
 
-	// Merges the first and second half
-	public static void merge(int[] fh, int[] sh, int[] arr) {
+	// Finds numbers bigger and  smaller than pivot and swaps them
+	private static int partition(int[] arr, int f, int l) {
 		// TODO Auto-generated method stub
-		int i = 0, j = 0, t= 0, length = fh.length;
-		while (i < length && j < length) {
-			if (fh[i] < sh[j]) {
-				arr[t] = fh[i]; t++; i++;
-			} else {
-				arr[t] = sh[j]; t++; j++;
+		int p = arr[f], li = f + 1, hi = l;
+		while (hi > li) {
+			while (li <= hi && arr[li] <= p)
+				li++;
+			while (li <= hi && arr[hi] > p)
+				hi--;
+
+			if (hi > li) {
+			//Collections.swap(arr, arr[right], arr[left]);
+			int t = arr[hi];
+			arr[hi] = arr[li];
+			arr[li] = t;
 			}
 		}
-		while (i < length) {
-			arr[t] = fh[i]; t++; i++;
+		while (hi > f && arr[hi] >= p)
+			hi--;
+		if (p > arr[hi]) {
+			arr[f] = arr[hi];
+			arr[hi] = p;
+			return hi;
 		}
-		while (j < length) {
-			arr[t] = sh[j]; t++; j++;
+		else {
+			return f;
 		}
 	}
+}
